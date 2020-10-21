@@ -1,6 +1,6 @@
 # Docker Registry
 
-After reading, we can learn that how to use [Caddy](https://caddyserver.com/) with ssl to proxy docker registry web and docker registry.
+After reading this article, we can learn that how to use [Caddy](https://caddyserver.com/) with ssl to proxy docker registry web and docker registry.
 
 ## Prequisite
 
@@ -20,7 +20,7 @@ Generate private key and certificate (also can use public certificate)
 openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -keyout certs/private.key -out certs/public.crt
 ```
 
-Entering your domain to `Common Name` in the certificate.
+Enter your domain to `Common Name` in the certificate.
 
 Modify docker-compose.yml, uncomment out `REGISTRY_TRUST_ANY_SSL` of `environment` in registry-web
 
@@ -47,7 +47,7 @@ Change `example.com` to `your-domain` following config
 * conf/registry/config.yml
 * conf/registry-web/config.yml
 
-_Note: You can change the issuers of `conf/registry/config.yml` and `conf/registry-web/config.yml`_
+_Note: You can change the issuers of `conf/registry/config.yml` and `conf/registry-web/config.yml` if need_
 
 ## Run
 
@@ -75,7 +75,7 @@ In docker-register-web, have following roles:
 
 ## Push and Pull
 
-If using self-signed certificate, we need copy cert of registry to each docker host `/etc/docker/certs.d/example.com/ca.crt`.
+For using self-signed certificate, we need copy cert of registry to each docker host `/etc/docker/certs.d/example.com/ca.crt`.
 
 For example, docker registry at `example.com`
 
