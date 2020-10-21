@@ -75,7 +75,7 @@ In docker-register-web, have following roles:
 
 ## Push and Pull
 
-If use self-signed certificate, need copy cert of registry to each docker host `/etc/docker/certs.d/example.com/ca.crt`.
+If using self-signed certificate, we need copy cert of registry to each docker host `/etc/docker/certs.d/example.com/ca.crt`.
 
 For example, docker registry at `example.com`
 
