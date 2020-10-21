@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  caddy:
+    image: abiosoft/caddy
+    container_name: caddy
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      - ACME_AGREE=true
+    volumes:
+      - ./conf/caddy/Caddyfile:/etc/Caddyfile
+      - ./certs-caddy:/root/.caddy
+    networks:
+      - registry-net
+    depends_on:
+      - registry
+      - registry-web
+    restart: always
+
+  registry-web:
+    image: hyper/docker-registry-web
+    container_name: registry-web
+    depends_on:
+      - registry
+    expose:
+      - '8080'
+    # If using self-signed cert, must use this
+    #environment:
+    #  - REGISTRY_TRUST_ANY_SSL=true
+    volumes:
+      - ./conf/registry-web/config.yml:/conf/config.yml:ro
+      - ./certs/private.key:/conf/private.key:ro
+      - ./db:/data
+    networks:
+      - registry-net
+    restart: always
+
+  registry:
+    image: registry
+    container_name: registry
+    expose:
+      - '5000'
+    volumes:
+      - ./conf/registry/config.yml:/etc/docker/registry/config.yml:ro
+      - ./registry:/var/lib/registry
+      - ./certs:/etc/docker/registry/cert:ro
+    restart: always
+    networks:
+      - registry-net
+
+networks:
+  registry-net:

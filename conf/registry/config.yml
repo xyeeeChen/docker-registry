@@ -1,0 +1,38 @@
+version: 0.1
+
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+  delete:
+    enabled: true
+
+http:
+  addr: 0.0.0.0:5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+
+auth:
+  token:
+    # external url to docker-web authentication endpoint
+    realm: https://example.com/api/auth
+    # should be same as registry.name of registry-web
+    service: example.com
+    # should be same as registry.auth.issuer of registry-web
+    issuer: your-issuer
+    # path to auth certificate
+    rootcertbundle: /etc/docker/registry/cert/public.crt
+
+log:
+  level: info
+  formatter: text
+  fields:
+    service: registry
+    environment: production
+
+notifications:
+  endpoints:
+    - name: listener
+      url: http://registry-web:8080/api/notification
+      timeout: 500ms
+      threshold: 5
+      backoff: 1s

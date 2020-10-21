@@ -1,0 +1,14 @@
+registry:
+  url: http://registry:5000/v2
+  name: example.com
+  # To allow image delete, should be false
+  readonly: false
+  auth:
+    # Enable authentication
+    enabled: true
+    # Token issuer
+    # should equals to auth.token.issuer of docker registry
+    issuer: your-issuer
+    # Private key for token signing
+    # certificate used on auth.token.rootcertbundle should signed by this key
+    key: /conf/private.key

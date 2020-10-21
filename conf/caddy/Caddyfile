@@ -1,0 +1,10 @@
+private.registry.domain.com {
+  log stdout
+  tls your-mail
+  proxy /v2/ http://registry:5000 {
+    transparent
+  }
+  proxy / http://registry-web:8080 {
+    transparent
+  }
+}
